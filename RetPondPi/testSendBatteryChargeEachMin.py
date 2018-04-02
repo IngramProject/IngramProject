@@ -4,7 +4,7 @@ from wirelessConnection import WirelessConnection
 from battery import Battery
 
 
-batteryLogFile = "/home/pi/Desktop/sendBatteryLogFileEachMin.log"
+batteryLogFile = "/home/pi/Desktop/testSendBatteryLogFileEachMin.log"
 
 
 wirelessConnection = WirelessConnection()
