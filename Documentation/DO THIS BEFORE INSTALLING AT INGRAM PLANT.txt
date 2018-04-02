@@ -1,0 +1,78 @@
+
+
+FIVE THINGS MUST BE CHANGED WHEN INSTALLING AT INGRAM CONCRETE PLANT
+
+*Note: a speaker must be connected to the OfficePi’s headphone jack in order to sound alarms.
+
+
+1) CHANGE PI’s PASSWORDS
+
+The OfficePi and RetentionPondPi’s password is ingramproject. The passwords on both Pi’s must be changed to passwords more difficult to hack.
+
+How to change passwords:  (same for both Pi’s)
+
+	a. Plug the Pi into a monitor using the HDMI port. 
+	b. Turn Pi on. The Desktop should appear.
+	c. Open the Terminal
+	d. Type: “passwd” (without the quotes) and hit enter
+	e. Follow the prompts: Old password then new password.
+
+	* Alternately, you can ssh into the Pi and change the password the same way as above.
+
+
+2) CHANGE WIFI PASSWORD
+
+The OfficePi creates a WiFi hotspot that the RetentionPondPi connects to automatically. The current password for the WiFi network is ingramproject. This password must be changed to something difficult to hack. 
+
+How to change WiFi password:
+
+	a. Plug the Pi into a monitor using the HDMI port. 
+	b. Turn Pi on. The Desktop should appear.
+	c. Open the Terminal
+	d. Type: “sudo nano /etc/hostapd/hostapd.conf” (no quotes) and hit enter
+	e. Scroll down to the bottom where it says: # The network passphrase.
+	f. Replace “ingrampproject” with a new password at least 8 characters long.
+	g. Hit “ctrl + x”   then “y”  then “Enter”
+	h. Then restart the Pi by typing: “sudo reboot”
+
+
+3) CONNECT RET_POND_PI TO OFFICE_PI’s WIFI
+
+The RetPondPi needs to connect to the OfficePi’s WiFi automatically. Since you just changed the WiFi password, you need to reconnect the RetPondPi to the WiFi. 
+
+	a. Plug the OfficePi into a power outlet. It does not need to be connected to a monitor
+	b. Plug the RetPondPi into a monitor using the HDMI port
+	c. Turn Pi on. The Desktop should appear
+	d. In the top right corner of the screen, click on the WiFi icon
+	e. Locate the IngramProject WiFi and click on it. If IngramProject is not in the list, unplug the 		OfficePi and plug it back in.
+	f. Type in the new WiFi password.
+	g. Check to see if the RetPondPi automatically connects to the IngramProject WiFi by restarting 		the Pi. (Open the terminal and type “sudo reboot”
+	h. When the Desktop reappears, click on the WiFi icon to confirm connection
+	
+
+
+4) CHANGE DATE/TIME
+
+The python scripts that start the server and run the client code are activated on a scheduler based on the current date and time on each Raspberry Pi. The Pi’s do not keep the current date and time while turned off. When the Pi’s are installed at the Ingram Concrete Plant and are turned on, their date and time must be set. Since you will not have access to a monitor once the Pi’s are installed at the site, the following instructions describe how to change the date and time remotely with a laptop.
+
+How to change date and time using a laptop: MAC
+
+	a. Plug both Pi in at the Ingram Concrete Plant
+	b. The RetPondPi should be connected to the OfficePi’s WiFi
+	c. Connect to the OfficePi’s WiFi with your MAC
+	d. Open the Terminal window
+	e. Connect to the OfficePi by typing: “ssh pi@172.24.1.1” and hit enter (No quotes)
+	f. You will be prompted for a password. This is the OfficePi password that you changed in step 1
+	g. Change the date and time by typing: sudo date -s “Thu Aug 9 21:31:26 CST 2018” or 		whatever the current date and time are. The quotes are required. Hit enter when finished
+	h. Do the same on the RetPondPi
+	i. Open a new terminal window
+	j. Connect the the RetPondPi by typing: “ssh pi@172.24.1.131” and hit enter (no quotes)
+	k. Repeat steps f and g. 
+
+
+
+5) TEST TO MAKE SURE THE SYSTEM IS WORKING
+
+crontab, uncomment data test each min, check to see if log file exists
+
+

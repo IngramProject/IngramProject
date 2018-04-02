@@ -1,0 +1,12 @@
+
+
+OVERVIEW OF THE CURRENT STATE OF THE PROJECT
+
+As of May 2018:
+
+
+One Raspberry Pi 3 (called OfficePi from now on) will be located in the onsite office of the Ingram concrete plant. The OfficePi has a piece of black duct tape on top of one of the USB ports. When the OfficePi is plugged into power, it automatically creates a WiFi access point (also known as a hot spot, or ad hoc network). A python script called officePiServer.py will run on startup. This script creates a socket at a specified port number and listens at the port for a client. The OfficePi will reboot once per day at 6pm automatically using the OS scheduler called crontab. This is to help prevent the OfficePi from freezing up. 
+
+The second Raspberry Pi 3 (called RetPondPi from now on) will be located outside near the retention pond at the Ingram concrete plant. The RetPondPi will sit idle while a scheduler (crontab) runs in the background. Twice a day at 10am and 2pm, crontab will run the sendBatteryCharge.py script. This script will establish a socket connection between the RetPondPi and the OfficePi. If the OfficePi is offline, the RetPondPi will continue to attempt to establish a socket connection until the OfficePi comes back online and a connection is establish. Once connected, the RetPondPi will get the current date and time, get the current battery charge, and send date, time, and the charge level to the OfficePi. Then the socket connection will be broken and the RetPondPi will wait idly. The RetPondPi will reboot once per day at 6pm automatically. 
+
+When the date, time, and charge data is sent to the OfficePi, the OfficePi will store the data on the OfficePi’s SD card in a read-only log file. The OfficePi will then check the battery charge level. If the charge level is LOW, the OfficePi will play a .wav file that says “Low Battery”. The sound will come out of a speaker attached to the headphone jack of the OfficePi.
