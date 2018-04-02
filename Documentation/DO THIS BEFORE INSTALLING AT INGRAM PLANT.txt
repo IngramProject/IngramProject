@@ -50,7 +50,7 @@ reconnect the RetPondPi to the WiFi.
 	e. Locate the IngramProject WiFi and click on it. If IngramProject is not in the list, unplug the 		
 	   OfficePi and plug it back in.
 	f. Type in the new WiFi password.
-	g. Check to see if the RetPondPi automatically connects to the IngramProject WiFi by restarting 		the 
+	g. Check to see if the RetPondPi automatically connects to the IngramProject WiFi by restarting the 
 	   Pi. (Open the terminal and type “sudo reboot”
 	h. When the Desktop reappears, click on the WiFi icon to confirm connection
 	
@@ -71,7 +71,7 @@ How to change date and time using a laptop: MAC
 	d. Open the Terminal window
 	e. Connect to the OfficePi by typing: “ssh pi@172.24.1.1” and hit enter (No quotes)
 	f. You will be prompted for a password. This is the OfficePi password that you changed in step 1
-	g. Change the date and time by typing: sudo date -s “Thu Aug 9 21:31:26 CST 2018” or 		whatever the current 
+	g. Change the date and time by typing: sudo date -s “Thu Aug 9 21:31:26 CST 2018” or whatever the current 
 	   date and time are. The quotes are required. Hit enter when finished
 	h. Do the same on the RetPondPi
 	i. Open a new terminal window
