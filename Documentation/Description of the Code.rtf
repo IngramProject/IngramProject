@@ -1,0 +1,104 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+\
+DESCRIPTION OF THE CODE\
+\
+\
+\
+\
+
+\b For future Ingram Project Teams:
+\b0 \
+\
+HOW TO SEND SENSOR DATA TO OFFICE PI:\
+\
+** Use sendBatteryCharge.py as an example **\
+\
+1. Create a log file variable. This variable will store the name of the log file and the location on the OfficePi where you want the data to be stored.\
+\
+2. Establish a connection with the OfficePi.\
+\
+3. Get the sensor data you want to send.\
+\
+4. Send the sensor data.\
+\
+5. End the connection with the OfficePi.\
+\
+\
+\
+\
+\
+As of May 2018:\
+\
+In the folder called 
+\b RetPondPi
+\b0 :\
+\
+
+\b sendBatteryCharge.py
+\b0 \
+\
+This script runs on the RetPondPi twice a day at 10am and 2pm. The code to establish a socket connection and send the data is found in wirelessConnection.py which is imported into this script. The batteryLogFile at the top of the script is the location and name of the log file that will be stored on the OfficePi. The code sleeps for one second three different times to give the code plenty of time to finish each function before moving on. \
+\
+\
+
+\b wirelessConnection.py\
+\
+
+\b0 This code file is called a class and it implements all the functions necessary to establish a socket connection with the OfficePi, send and receive data, end the connection, and shutdown the server on the OfficePi. This code does not run or do anything on its own. It must be imported into another script like sendBatteryCharge.py where the code can be used. There is comments above each function that describes what the functions do. \
+\
+\
+
+\b battery.py
+\b0 \
+\
+This code file is the battery class. Like wirelessConnection.py, it implements code but does not run code by itself. This class must be imported into another python file to be used. This class is used in sendBatteryCharge.py. It returns the battery charge level as LOW, MEDIUM, or HIGH. If LOW is sent to the OfficePi, the OfficePi will play a .wav file the says the words, \'93Low Battery\'94 so the employees in the office will know that the RetPondPi has a low battery.\
+\
+\
+In the folder called 
+\b OfficePi
+\b0 \
+\
+
+\b pythonServer.py
+\b0 \
+\
+The first six functions are used in the code. The code begins at the very bottom with the line \
+\'93time.sleep(60)\'94\
+\
+\
+This script establishes a socket at a given port number on the OfficePi. The OfficePi will wait and listen at the port number for the RetPondPi to initiate a connection. Once a connection is established, the OfficePi will receive data from the RetPondPi and save the data to the SD card.\
+\
+The RetPondPi can control the OfficePi by sending commands to the OfficePi. \
+\
+Example of how to control the OfficePi from the RetPondPi:\
+\
+The following example string will be sent to the OfficePi:\
+\'93SEND /home/pi/Desktop/logFile.log your_Sensor_Data\'94\
+\
+How pythonServer.py processes this example string:\
+In the function dataTransfer(), there is a line of code that reads \'93dataMessage = data.split(\'91 \'91,1)\'94.\
+This line of code splits the string sent to the OfficePi into 2 parts. Everything up until the first space will be stored in dataMessage[0] and everything after the first space will be stored in dataMessage[1].\
+For our example: dataMessage[0] will contain the word \'93SEND\'94 and dataMessage[1] will contain the rest of the string \'93/home/pi/Desktop/logFile.log your_Sensor_Data\'94.\
+\
+The code then checks the word stored in dataMessage[0]. If it equals \'93SEND\'94 which it does for our example, then the string stored in dataMessage[1] is split again separating \'93/home/pi/Desktop/logFile.log\'94 and \'93your_Sensor_Data\'94 in two. The function SEND() is then called and the logFile and sensor_data is passed into the function.\
+\
+The SEND() function saves the data to the logFile name that was passed to it. Then it calls the PROCESS() function. \
+\
+For the our project, we used the PROCESS() function to check the \'93data_message\'94 that was sent. If \'93LOW\'94 was sent, then the OfficePi will play a file that uses a speaker to say \'93Low Battery\'94 for the office employees to hear. \
+\
+For a future sensor team, you will use the PROCESS() file to check your \'93sensor_data_message\'94 to see if outflow has occurred. (When outflow occurs, you will probably send a message to the OfficePi that says something like \'93OUTFLOW\'94). You will add an if statement to the PROCESS() function that checks to see if the sent message = \'93OUTFLOW\'94. If it does, do what is needed. \
+\
+\
+\
+\
+\
+\
+\
+}

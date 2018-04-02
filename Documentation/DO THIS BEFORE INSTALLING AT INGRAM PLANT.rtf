@@ -1,0 +1,91 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10920\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 \
+\
+FIVE
+\b0  THINGS MUST BE CHANGED WHEN INSTALLING AT INGRAM CONCRETE PLANT\
+\
+*Note: a speaker must be connected to the OfficePi\'92s headphone jack in order to sound alarms.\
+\
+\
+1) CHANGE PI\'92s PASSWORDS\
+\
+The OfficePi and RetentionPondPi\'92s password is 
+\i ingramproject
+\i0 . The passwords on both Pi\'92s must be changed to passwords more difficult to hack.\
+\
+How to change passwords:  (same for both Pi\'92s)\
+\
+	a. Plug the Pi into a monitor using the HDMI port. \
+	b. Turn Pi on. The Desktop should appear.\
+	c. Open the Terminal\
+	d. Type: \'93passwd\'94 (without the quotes) and hit enter\
+	e. Follow the prompts: Old password then new password.\
+\
+	* Alternately, you can ssh into the Pi and change the password the same way as above.\
+\
+\
+2) CHANGE WIFI PASSWORD\
+\
+The OfficePi creates a WiFi hotspot that the RetentionPondPi connects to automatically. The current password for the WiFi network is 
+\i ingramproject. 
+\i0 This password must be changed to something difficult to hack. \
+\
+How to change WiFi password:\
+\
+	a. Plug the Pi into a monitor using the HDMI port. \
+	b. Turn Pi on. The Desktop should appear.\
+	c. Open the Terminal\
+	d. Type: \'93sudo nano /etc/hostapd/hostapd.conf\'94 (no quotes) and hit enter\
+	e. Scroll down to the bottom where it says: # The network passphrase.\
+	f. Replace \'93ingrampproject\'94 with a new password at least 8 characters long.\
+	g. Hit \'93ctrl + x\'94   then \'93y\'94  then \'93Enter\'94\
+	h. Then restart the Pi by typing: \'93sudo reboot\'94\
+\
+\
+3) CONNECT RET_POND_PI TO OFFICE_PI\'92s WIFI\
+\
+The RetPondPi needs to connect to the OfficePi\'92s WiFi automatically. Since you just changed the WiFi password, you need to reconnect the RetPondPi to the WiFi. \
+\
+	a. Plug the OfficePi into a power outlet. It does not need to be connected to a monitor\
+	b. Plug the RetPondPi into a monitor using the HDMI port\
+	c. Turn Pi on. The Desktop should appear\
+	d. In the top right corner of the screen, click on the WiFi icon\
+	e. Locate the IngramProject WiFi and click on it. If IngramProject is not in the list, unplug the 		OfficePi and plug it back in.\
+	f. Type in the new WiFi password.\
+	g. Check to see if the RetPondPi automatically connects to the IngramProject WiFi by restarting 		the Pi. (Open the terminal and type \'93sudo reboot\'94\
+	h. When the Desktop reappears, click on the WiFi icon to confirm connection\
+	\
+\
+\
+4) CHANGE DATE/TIME\
+\
+The python scripts that start the server and run the client code are activated on a scheduler based on the current date and time on each Raspberry Pi. The Pi\'92s do not keep the current date and time while turned off. When the Pi\'92s are installed at the Ingram Concrete Plant and are turned on, their date and time must be set. Since you will not have access to a monitor once the Pi\'92s are installed at the site, the following instructions describe how to change the date and time remotely with a laptop.\
+\
+How to change date and time using a laptop: MAC\
+\
+	a. Plug both Pi in at the Ingram Concrete Plant\
+	b. The RetPondPi should be connected to the OfficePi\'92s WiFi\
+	c. Connect to the OfficePi\'92s WiFi with your MAC\
+	d. Open the Terminal window\
+	e. Connect to the OfficePi by typing: \'93ssh pi@172.24.1.1\'94 and hit enter (No quotes)\
+	f. You will be prompted for a password. This is the OfficePi password that you changed in step 1\
+	g. Change the date and time by typing: sudo date -s \'93Thu Aug 9 21:31:26 CST 2018\'94 or 		whatever the current date and time are. The quotes are required. Hit enter when finished\
+	h. Do the same on the RetPondPi\
+	i. Open a new terminal window\
+	j. Connect the the RetPondPi by typing: \'93ssh pi@172.24.1.131\'94 and hit enter (no quotes)\
+	k. Repeat steps f and g. \
+\
+\
+\
+5) TEST TO MAKE SURE THE SYSTEM IS WORKING\
+\
+crontab, uncomment data test each min, check to see if log file exists\
+\
+\
+}
